@@ -20,7 +20,7 @@
         "Addresses": {
             "RelationshipType": "hasMany",
             "RelatedTypeKey": "EducatorAddress",
-            "ForeignKey": "address_id"
+            "ForeignKey": "educator_id"
         },
         "Tenures": {
             "RelationshipType": "hasMany",

@@ -2,7 +2,7 @@
     "TypeKey":  "OrganizationType",
     "TableName": "organization_type",
     "FieldDefinitions": {
-        "OrganizationID": {
+        "OrganizationTypeID": {
             "type": "STRING",
             "field": "organization_type_id",
             "primaryKey": true

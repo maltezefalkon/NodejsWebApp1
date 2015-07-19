@@ -1,5 +1,5 @@
 ﻿{
-    "TypeKey":  "Tenure",
+    "TypeKey": "Tenure",
     "TableName": "tenure",
     "FieldDefinitions": {
         "EducatorID": {
@@ -21,6 +21,18 @@
             "type": "DATE",
             "field": "end_date",
             "allowNull": true
+        }
+    },
+    "Relationships": {
+        "Organization": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "organization_id",
+            "RelatedTypeKey": "Organization"
+        },
+        "Educator": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "educator_id",
+            "RelatedTypeKey": "Educator"
         }
     }
 }

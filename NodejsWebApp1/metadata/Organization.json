@@ -15,5 +15,18 @@
             "type": "STRING",
             "field": "organization_type_id"
         }
+    },
+    "Relationships": {
+        "Type": {
+            "RelationshipType": "belongsTo",
+            "RelatedTypeKey": "OrganizationType",
+            "ForeignKey": "organization_type_id",
+            "TargetKey": "OrganizationTypeID"
+        },
+        "Tenures": {
+            "RelationshipType": "hasMany",
+            "RelatedTypeKey": "Tenure",
+            "ForeignKey": "organization_id"
+        }
     }
 }

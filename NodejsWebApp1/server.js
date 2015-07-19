@@ -50,11 +50,7 @@ http.createServer(function (req, res) {
     if (pathArray.length > 1) {
         properties = pathArray[1].split(',');
     }
-    var includes = [];
-    for (var i = 0; i < properties.length; i++) {
-        var inc = BuildInclude(db, typeName, properties[i]);
-        includes.push(inc);
-    }
+    var includes = BuildIncludes(db, typeName, properties);
     if (db[typeName]) {
         db[typeName].findAll({ where: condition, include: includes }).then(
             function (results) {
@@ -110,21 +106,39 @@ function SetupRelationships(db) {
     }
 }
 
-function BuildInclude(db, contextTypeKey, path) {
-    var currentTypeKey = contextTypeKey;
-    var parsed = path.split('.');
-    var head = parsed.shift();
-    var ret = { };
-    var currentInclude = ret;
-    while (head) {
-        currentTypeKey = db.Metadata[currentTypeKey].Relationships[head].RelatedTypeKey;
-        currentInclude['model'] = db.Metadata[currentTypeKey];
-        head = parsed.shift();
-        if (head) {
-            currentInclude.include = [];
-            var newInclude = { };
-            currentInclude.include.push(newInclude);
+function BuildIncludes(db, contextTypeKey, paths) {
+    var ret = [];
+    var map = {};
+    for (var i = 0; i < paths.length; i++) {
+        var currentTypeKey = contextTypeKey;
+        var parsed = paths[i].split('.');
+        var head = parsed.shift();
+        var thisPath = head;
+        var currentInclude = null;
+        if (!map[thisPath]) {
+            var newInclude = { as: head };
+            map[thisPath] = newInclude;
             currentInclude = newInclude;
+            ret.push(currentInclude);
+        } else {
+            currentInclude = map[thisPath];
+        }
+        while (head) {
+            currentTypeKey = db.Metadata[currentTypeKey].Relationships[head].RelatedTypeKey;
+            currentInclude['model'] = db[currentTypeKey];
+            head = parsed.shift();
+            if (head) {
+                thisPath += '.' + head;
+                if (!map[thisPath]) {
+                    currentInclude.include = [];
+                    var newInclude = { as: head };
+                    currentInclude.include.push(newInclude);
+                    map[thisPath] = newInclude;
+                    currentInclude = newInclude;
+                } else {
+                    currentInclude = map[thisPath];
+                }
+            }
         }
     }
     return ret;
