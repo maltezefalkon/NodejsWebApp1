@@ -34,7 +34,7 @@ log.debug('setting up relationsips');
 SetupRelationships(db);
 
 // update the database to match our metadata
-// sequelize.sync();
+sequelize.sync();
 
 // ----------------------------
 
@@ -66,7 +66,11 @@ function DbDefine(db, fs, filePath) {
     var content = fs.readFileSync(filePath, "utf8");
     var metadata = JSON.parse(content.trim());
     for (var f in metadata.FieldDefinitions) {
-        metadata.FieldDefinitions[f].type = Sequelize[metadata.FieldDefinitions[f].type]();
+        if (metadata.FieldDefinitions[f].type == "UUID") {
+            metadata.FieldDefinitions[f].type = Sequelize.STRING(32);
+        } else {
+            metadata.FieldDefinitions[f].type = Sequelize[metadata.FieldDefinitions[f].type]();
+        }
     }
     db.Metadata[metadata.TypeKey] = metadata;
     db[metadata.TypeKey] = db.Sequelize.define(metadata.TypeKey, metadata.FieldDefinitions, { tableName: metadata.TableName });

@@ -1,9 +1,9 @@
 ﻿{
-    "TypeKey":  "User",
+    "TypeKey": "User",
     "TableName": "user",
     "FieldDefinitions": {
         "UserID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "user_id",
             "primaryKey": true
         },
@@ -14,6 +14,18 @@
         "EmailAddress": {
             "type": "STRING",
             "field": "email_address"
+        }
+    },
+    "Relationships": {
+        "EducatorAuthorizations": {
+            "RelationshipType": "hasMany",
+            "RelatedTypeKey": "UserEducatorAuthorization",
+            "ForeignKey": "user_id"
+        },
+        "OrganizationAuthorizations": {
+            "RelationshipType": "hasMany",
+            "RelatedTypeKey": "UserOrganizationAuthorization",
+            "ForeignKey": "user_id"
         }
     }
 }

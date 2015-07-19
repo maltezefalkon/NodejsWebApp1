@@ -3,7 +3,7 @@
     "TableName": "document_definition",
     "FieldDefinitions": {
         "DocumentDefinitionID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "document_definition_id",
             "primaryKey": true
         },

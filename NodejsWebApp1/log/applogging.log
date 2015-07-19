@@ -805,3 +805,91 @@
 {"name":"main","hostname":"CATHY","pid":7808,"level":20,"msg":"Organization hasMany Tenure","time":"2015-07-19T18:04:36.737Z","v":0}
 {"name":"main","hostname":"CATHY","pid":7808,"level":20,"msg":"Tenure belongsTo Organization","time":"2015-07-19T18:04:36.738Z","v":0}
 {"name":"main","hostname":"CATHY","pid":7808,"level":20,"msg":"Tenure belongsTo Educator","time":"2015-07-19T18:04:36.738Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":30,"msg":"setting up database","time":"2015-07-19T18:14:45.208Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file Address.json","time":"2015-07-19T18:14:45.254Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file AddressType.json","time":"2015-07-19T18:14:45.254Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file DocumentDefinition.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file DocumentInstance.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file Educator.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file EducatorAddress.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file Organization.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file OrganizationAddress.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file OrganizationType.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file Tenure.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file User.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file UserEducatorAuthorization.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"processing metadata file UserOrganizationAuthorization.json","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"setting up relationsips","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"Educator hasMany EducatorAddress","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"Educator hasMany Tenure","time":"2015-07-19T18:14:45.270Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"EducatorAddress hasOne Address","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"EducatorAddress belongsTo AddressType","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"Organization belongsTo OrganizationType","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"Organization hasMany Tenure","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"OrganizationAddress belongsTo Organization","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"OrganizationAddress belongsTo Address","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"OrganizationAddress belongsTo AddressType","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"Tenure belongsTo Organization","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"Tenure belongsTo Educator","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"UserEducatorAuthorization belongsTo Educator","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":9988,"level":20,"msg":"UserOrganizationAuthorization belongsTo Organization","time":"2015-07-19T18:14:45.286Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":30,"msg":"setting up database","time":"2015-07-19T18:16:36.839Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file Address.json","time":"2015-07-19T18:16:36.902Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file AddressType.json","time":"2015-07-19T18:16:36.902Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file DocumentDefinition.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file DocumentInstance.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file Educator.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file EducatorAddress.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file Organization.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file OrganizationAddress.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file OrganizationType.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file Tenure.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file User.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file UserEducatorAuthorization.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"processing metadata file UserOrganizationAuthorization.json","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"setting up relationsips","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"Educator hasMany EducatorAddress","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"Educator hasMany Tenure","time":"2015-07-19T18:16:36.917Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"EducatorAddress hasOne Address","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"EducatorAddress belongsTo AddressType","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"Organization belongsTo OrganizationType","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"Organization hasMany Tenure","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"OrganizationAddress belongsTo Organization","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"OrganizationAddress belongsTo Address","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"OrganizationAddress belongsTo AddressType","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"Tenure belongsTo Organization","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"Tenure belongsTo Educator","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"User hasMany UserEducatorAuthorization","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"User hasMany UserOrganizationAuthorization","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"UserEducatorAuthorization belongsTo Educator","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":8280,"level":20,"msg":"UserOrganizationAuthorization belongsTo Organization","time":"2015-07-19T18:16:36.933Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":30,"msg":"setting up database","time":"2015-07-19T18:21:36.094Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file Address.json","time":"2015-07-19T18:21:36.141Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file AddressType.json","time":"2015-07-19T18:21:36.141Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file DocumentDefinition.json","time":"2015-07-19T18:21:36.141Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file DocumentInstance.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file Educator.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file EducatorAddress.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file Organization.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file OrganizationAddress.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file OrganizationType.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file Tenure.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file User.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file UserEducatorAuthorization.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"processing metadata file UserOrganizationAuthorization.json","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"setting up relationsips","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"Educator hasMany EducatorAddress","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"Educator hasMany Tenure","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"EducatorAddress hasOne Address","time":"2015-07-19T18:21:36.157Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"EducatorAddress belongsTo AddressType","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"Organization belongsTo OrganizationType","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"Organization hasMany Tenure","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"OrganizationAddress belongsTo Organization","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"OrganizationAddress belongsTo Address","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"OrganizationAddress belongsTo AddressType","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"Tenure belongsTo Organization","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"Tenure belongsTo Educator","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"User hasMany UserEducatorAuthorization","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"User hasMany UserOrganizationAuthorization","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"UserEducatorAuthorization belongsTo Educator","time":"2015-07-19T18:21:36.172Z","v":0}
+{"name":"main","hostname":"CATHY","pid":3988,"level":20,"msg":"UserOrganizationAuthorization belongsTo Organization","time":"2015-07-19T18:21:36.172Z","v":0}

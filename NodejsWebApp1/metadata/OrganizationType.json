@@ -3,7 +3,7 @@
     "TableName": "organization_type",
     "FieldDefinitions": {
         "OrganizationTypeID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "organization_type_id",
             "primaryKey": true
         },

@@ -1,16 +1,23 @@
 ﻿{
-    "TypeKey":  "UserOrganizationAuthorization",
+    "TypeKey": "UserOrganizationAuthorization",
     "TableName": "user_organization_authorization",
     "FieldDefinitions": {
-        "OrganizationID": {
-            "type": "STRING",
+        "UserID": {
+            "type": "UUID",
             "field": "user_id",
             "primaryKey": true
         },
         "OrganizationID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "organization_id",
             "primaryKey": true
+        }
+    },
+    "Relationships": {
+        "Organization": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "organization_id",
+            "RelatedTypeKey": "Organization"
         }
     }
 }

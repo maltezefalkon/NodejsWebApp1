@@ -1,20 +1,37 @@
 ﻿{
-    "TypeKey":  "OrganizationAddress",
+    "TypeKey": "OrganizationAddress",
     "TableName": "organization_address",
     "FieldDefinitions": {
         "EducatorID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "organization_id",
             "primaryKey": true
         },
         "AddressID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "address_id",
             "primaryKey": true
         },
         "AddressTypeID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "address_type_id"
+        }
+    },
+    "Relationships": {
+        "Organization": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "organization_id",
+            "RelatedTypeKey": "Organization"
+        },
+        "Details": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "address_id",
+            "RelatedTypeKey": "Address"
+        },
+        "Type": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "address_type_id",
+            "RelatedTypeKey": "AddressType"
         }
     }
 }

@@ -3,7 +3,7 @@
     "TableName": "educator",
     "FieldDefinitions": {
         "EducatorID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "educator_id",
             "primaryKey": true
         },

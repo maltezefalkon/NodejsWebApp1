@@ -3,16 +3,16 @@
     "TableName": "document_instance",
     "FieldDefinitions": {
         "DocumentInstanceID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "document_instance_id",
             "primaryKey": true
         },
         "DocumentDefinitionID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "document_definition_id"
         },
         "EducatorID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "educator_id"
         }
     }

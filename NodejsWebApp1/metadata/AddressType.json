@@ -3,7 +3,7 @@
     "TableName": "address_type",
     "FieldDefinitions": {
         "AddressTypeID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "address_type_id",
             "primaryKey": true
         },

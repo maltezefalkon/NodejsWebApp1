@@ -3,12 +3,12 @@
     "TableName": "tenure",
     "FieldDefinitions": {
         "EducatorID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "educator_id",
             "primaryKey": true
         },
         "OrganizationID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "organization_id",
             "primaryKey": true
         },

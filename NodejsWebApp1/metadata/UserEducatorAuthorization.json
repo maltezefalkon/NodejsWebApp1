@@ -1,16 +1,23 @@
 ﻿{
-    "TypeKey":  "UserEducatorAuthorization",
+    "TypeKey": "UserEducatorAuthorization",
     "TableName": "user_educator_authorization",
     "FieldDefinitions": {
-        "OrganizationID": {
-            "type": "STRING",
+        "UserID": {
+            "type": "UUID",
             "field": "user_id",
             "primaryKey": true
         },
         "EducatorID": {
-            "type": "STRING",
+            "type": "UUID",
             "field": "educator_id",
             "primaryKey": true
+        }
+    },
+    "Relationships": {
+        "Educator": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "educator_id",
+            "RelatedTypeKey": "Educator"
         }
     }
 }
