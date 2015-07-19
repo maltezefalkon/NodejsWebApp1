@@ -1,0 +1,16 @@
+﻿{
+    "TypeKey":  "UserEducatorAuthorization",
+    "TableName": "user_educator_authorization",
+    "FieldDefinitions": {
+        "OrganizationID": {
+            "type": "STRING",
+            "field": "user_id",
+            "primaryKey": true
+        },
+        "EducatorID": {
+            "type": "STRING",
+            "field": "educator_id",
+            "primaryKey": true
+        }
+    }
+}

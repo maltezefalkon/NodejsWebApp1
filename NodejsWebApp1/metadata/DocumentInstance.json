@@ -1,0 +1,19 @@
+﻿{
+    "TypeKey":  "DocumentInstance",
+    "TableName": "document_instance",
+    "FieldDefinitions": {
+        "DocumentInstanceID": {
+            "type": "STRING",
+            "field": "document_instance_id",
+            "primaryKey": true
+        },
+        "DocumentDefinitionID": {
+            "type": "STRING",
+            "field": "document_definition_id"
+        },
+        "EducatorID": {
+            "type": "STRING",
+            "field": "educator_id"
+        }
+    }
+}

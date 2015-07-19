@@ -1,0 +1,20 @@
+﻿{
+    "TypeKey":  "OrganizationAddress",
+    "TableName": "organization_address",
+    "FieldDefinitions": {
+        "EducatorID": {
+            "type": "STRING",
+            "field": "organization_id",
+            "primaryKey": true
+        },
+        "AddressID": {
+            "type": "STRING",
+            "field": "address_id",
+            "primaryKey": true
+        },
+        "AddressTypeID": {
+            "type": "STRING",
+            "field": "address_type_id"
+        }
+    }
+}

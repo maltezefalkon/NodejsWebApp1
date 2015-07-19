@@ -1,0 +1,33 @@
+﻿{
+    "TypeKey": "EducatorAddress",
+    "TableName": "educator_address",
+    "FieldDefinitions": {
+        "EducatorID": {
+            "type": "STRING",
+            "field": "educator_id",
+            "primaryKey": true
+        },
+        "AddressID": {
+            "type": "STRING",
+            "field": "address_id",
+            "primaryKey": true
+        },
+        "AddressTypeID": {
+            "type": "STRING",
+            "field": "address_type_id"
+        }
+    },
+    "Relationships": {
+        "Details": {
+            "RelationshipType": "hasOne",
+            "RelatedTypeKey": "Address",
+            "ForeignKey": "address_id"
+        },
+        "Type": {
+            "RelationshipType": "belongsTo",
+            "RelatedTypeKey": "AddressType",
+            "ForeignKey": "address_type_id",
+            "TargetKey": "AddressTypeID"
+        }
+    }
+}

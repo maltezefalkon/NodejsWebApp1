@@ -1,0 +1,19 @@
+﻿{
+    "TypeKey":  "User",
+    "TableName": "user",
+    "FieldDefinitions": {
+        "UserID": {
+            "type": "STRING",
+            "field": "user_id",
+            "primaryKey": true
+        },
+        "UserName": {
+            "type": "STRING",
+            "field": "user_name"
+        },
+        "EmailAddress": {
+            "type": "STRING",
+            "field": "email_address"
+        }
+    }
+}

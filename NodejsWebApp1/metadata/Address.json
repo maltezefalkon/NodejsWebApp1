@@ -1,0 +1,31 @@
+﻿{
+    "TypeKey": "Address",
+    "TableName": "address",
+    "FieldDefinitions": {
+        "AddressID": {
+            "type": "STRING",
+            "field": "address_id",
+            "primaryKey": true
+        },
+        "Address1": {
+            "type": "STRING",
+            "field": "address1"
+        },
+        "Address2": {
+            "type": "STRING",
+            "field": "address2"
+        },
+        "City": {
+            "type": "STRING",
+            "field": "city"
+        },
+        "State": {
+            "type": "STRING",
+            "field": "state"
+        },
+        "ZipCode": {
+            "type": "STRING",
+            "field": "zip_code"
+        }
+    }
+}

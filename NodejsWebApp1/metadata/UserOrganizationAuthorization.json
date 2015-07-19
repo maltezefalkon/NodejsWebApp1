@@ -1,0 +1,16 @@
+﻿{
+    "TypeKey":  "UserOrganizationAuthorization",
+    "TableName": "user_organization_authorization",
+    "FieldDefinitions": {
+        "OrganizationID": {
+            "type": "STRING",
+            "field": "user_id",
+            "primaryKey": true
+        },
+        "OrganizationID": {
+            "type": "STRING",
+            "field": "organization_id",
+            "primaryKey": true
+        }
+    }
+}

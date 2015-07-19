@@ -1,0 +1,15 @@
+﻿{
+    "TypeKey":  "DocumentDefinition",
+    "TableName": "document_definition",
+    "FieldDefinitions": {
+        "DocumentDefinitionID": {
+            "type": "STRING",
+            "field": "document_definition_id",
+            "primaryKey": true
+        },
+        "Name": {
+            "type": "STRING",
+            "field": "name"
+        }
+    }
+}

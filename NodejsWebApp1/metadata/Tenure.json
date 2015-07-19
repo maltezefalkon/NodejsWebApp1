@@ -1,0 +1,26 @@
+﻿{
+    "TypeKey":  "Tenure",
+    "TableName": "tenure",
+    "FieldDefinitions": {
+        "EducatorID": {
+            "type": "STRING",
+            "field": "educator_id",
+            "primaryKey": true
+        },
+        "OrganizationID": {
+            "type": "STRING",
+            "field": "organization_id",
+            "primaryKey": true
+        },
+        "StartDate": {
+            "type": "DATE",
+            "field": "start_date",
+            "allowNull": false
+        },
+        "EndDate": {
+            "type": "DATE",
+            "field": "end_date",
+            "allowNull": true
+        }
+    }
+}

@@ -1,0 +1,15 @@
+﻿{
+    "TypeKey":  "AddressType",
+    "TableName": "address_type",
+    "FieldDefinitions": {
+        "AddressTypeID": {
+            "type": "STRING",
+            "field": "address_type_id",
+            "primaryKey": true
+        },
+        "Name": {
+            "type": "STRING",
+            "field": "name"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+﻿{
+    "TypeKey":  "OrganizationType",
+    "TableName": "organization_type",
+    "FieldDefinitions": {
+        "OrganizationID": {
+            "type": "STRING",
+            "field": "organization_type_id",
+            "primaryKey": true
+        },
+        "Name": {
+            "type": "STRING",
+            "field": "name"
+        }
+    }
+}

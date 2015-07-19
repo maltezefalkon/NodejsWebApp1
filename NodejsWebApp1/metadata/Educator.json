@@ -1,0 +1,31 @@
+﻿{
+    "TypeKey": "Educator",
+    "TableName": "educator",
+    "FieldDefinitions": {
+        "EducatorID": {
+            "type": "STRING",
+            "field": "educator_id",
+            "primaryKey": true
+        },
+        "FirstName": {
+            "type": "STRING",
+            "field": "first_name"
+        },
+        "LastName": {
+            "type": "STRING",
+            "field": "last_name"
+        }
+    },
+    "Relationships": {
+        "Addresses": {
+            "RelationshipType": "hasMany",
+            "RelatedTypeKey": "EducatorAddress",
+            "ForeignKey": "address_id"
+        },
+        "Tenures": {
+            "RelationshipType": "hasMany",
+            "RelatedTypeKey": "Tenure",
+            "ForeignKey": "educator_id"
+        }
+    }
+}
