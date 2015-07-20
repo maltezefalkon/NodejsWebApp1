@@ -1,8 +1,4 @@
-WScript.Echo(1);
-
 var request = WScript.CreateObject("MSXML2.XMLHTTP");
-
-WScript.Echo(2);
 
 var list = [
     'Address',

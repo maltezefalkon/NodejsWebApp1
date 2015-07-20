@@ -5,11 +5,11 @@ var list = [
     'DocumentInstance',
     'Educator',
     'EducatorAddress',
+    'OrganizationType',
+    'User',
     'Organization',
     'OrganizationAddress',
-    'OrganizationType',
     'Tenure',
-    'User',
     'UserEducatorAuthorization',
     'UserOrganizationAuthorization'
 ];
