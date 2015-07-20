@@ -5,7 +5,8 @@
         "AddressID": {
             "type": "UUID",
             "field": "address_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": false
         },
         "Address1": {
             "type": "STRING",

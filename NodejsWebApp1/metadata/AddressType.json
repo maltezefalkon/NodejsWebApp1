@@ -5,11 +5,13 @@
         "AddressTypeID": {
             "type": "UUID",
             "field": "address_type_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": false
         },
         "Name": {
             "type": "STRING",
-            "field": "name"
+            "field": "name",
+            "allowNull": false
         }
     }
 }

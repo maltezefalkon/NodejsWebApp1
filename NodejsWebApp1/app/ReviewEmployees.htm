@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
+    <title>Manage Documents</title>
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style type="text/css">
+        * { font-family: Tahoma; font-size: 14pt; }
+        tr.main th { font-size: 18pt; background-color: #EEEEEE; }
+        tr.selectable:hover { background-color: #DDEEFF; cursor:pointer; }
+        td, th { padding: 20px; text-wrap: none;  }
+        table { border: solid black 1px; }
+    </style>
+</head>
+
+<body ng-app="SafeApp" ng-controller="controller">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script type="text/javascript" src="controllers/ReviewEmployeesController.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('SafeApp', []);
+        var ctl = app.controller('controller', ReviewEmployeesController);
+        ctl.$inject = [ '$scope', '$http' ];
+    </script>
+    <div>
+        {{JSON.stringify(Organization)}}
+    </div>
+    <table width="100%">
+        <tr class="main">
+            <th>{{Organization.Name}}</th>
+        </tr>
+        <tr>
+            <td>{{Organization.Addresses[0].Details.Address1}} {{Organization.Addresses[0].Details.Address2}} {{Organization.Addresses[0].Details.City}}, {{Organization.Addresses[0].Details.State}} {{Organization.Addresses[0].Details.ZipCode}}</td>
+        </tr>
+    </table>
+    <hr />
+    <table cellpadding="1" cellspacing="0">
+        <tr class="main">
+            <th colspan="6">Active Employees</th>
+        </tr>
+        <tr>
+            <th>Employee</th>
+            <th>Position</th>
+            <th>Hire Date</th>
+            <th>Form 168</th>
+            <th>Fingerprint</th>
+            <th>Form 66</th>
+        </tr>
+        <tr ng-repeat="tenure in Organization.Tenures" class="selectable">
+            <td width="60%">{{tenure.Educator.Title}} {{tenure.Educator.FirstName}} {{tenure.Educator.LastName}}</td>
+            <td width="10%">{{tenure.PositionsHeld}}</td>
+            <td width="10%">{{tenure.StartDate | date}}</td>
+            <td>N</td>
+            <td>Y</td>
+            <td>Y</td>
+        </tr>
+    </table>
+</body>
+</html>

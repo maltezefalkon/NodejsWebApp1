@@ -5,12 +5,14 @@
         "UserID": {
             "type": "UUID",
             "field": "user_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": true
         },
         "EducatorID": {
             "type": "UUID",
             "field": "educator_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": true
         }
     },
     "Relationships": {

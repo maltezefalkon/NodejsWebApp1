@@ -9,7 +9,8 @@
         },
         "Name": {
             "type": "STRING",
-            "field": "name"
+            "field": "name",
+            "allowNull": false
         }
     }
 }

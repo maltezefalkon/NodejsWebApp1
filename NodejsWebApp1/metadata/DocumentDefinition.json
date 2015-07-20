@@ -5,11 +5,13 @@
         "DocumentDefinitionID": {
             "type": "UUID",
             "field": "document_definition_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": false
         },
         "Name": {
             "type": "STRING",
-            "field": "name"
+            "field": "name",
+            "allowNull": false
         }
     }
 }

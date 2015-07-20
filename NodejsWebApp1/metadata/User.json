@@ -9,11 +9,13 @@
         },
         "UserName": {
             "type": "STRING",
-            "field": "user_name"
+            "field": "user_name",
+            "allowNull": true
         },
         "EmailAddress": {
             "type": "STRING",
-            "field": "email_address"
+            "field": "email_address",
+            "allowNull": true
         }
     },
     "Relationships": {

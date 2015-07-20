@@ -7,6 +7,10 @@
             "field": "educator_id",
             "primaryKey": true
         },
+        "Title": {
+            "type": "STRING",
+            "field": "title"
+        },
         "FirstName": {
             "type": "STRING",
             "field": "first_name"

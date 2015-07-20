@@ -5,16 +5,20 @@
         "EducatorID": {
             "type": "UUID",
             "field": "organization_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": true
         },
         "AddressID": {
             "type": "UUID",
             "field": "address_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": true
         },
         "AddressTypeID": {
             "type": "UUID",
-            "field": "address_type_id"
+            "field": "address_type_id",
+            "primaryKey": true,
+            "allowNull": true
         }
     },
     "Relationships": {
@@ -24,7 +28,7 @@
             "RelatedTypeKey": "Organization"
         },
         "Details": {
-            "RelationshipType": "belongsTo",
+            "RelationshipType": "hasOne",
             "ForeignKey": "address_id",
             "RelatedTypeKey": "Address"
         },

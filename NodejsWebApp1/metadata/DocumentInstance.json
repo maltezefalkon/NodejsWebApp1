@@ -1,5 +1,5 @@
 ﻿{
-    "TypeKey":  "DocumentInstance",
+    "TypeKey": "DocumentInstance",
     "TableName": "document_instance",
     "FieldDefinitions": {
         "DocumentInstanceID": {
@@ -9,11 +9,19 @@
         },
         "DocumentDefinitionID": {
             "type": "UUID",
-            "field": "document_definition_id"
+            "field": "document_definition_id",
+            "allowNull": false
         },
         "EducatorID": {
             "type": "UUID",
             "field": "educator_id"
+        }
+    },
+    "Relationships": {
+        "Definition": {
+            "RelationshipType": "hasOne",
+            "RelatedTypeKey": "DocumentDefinition",
+            "ForeignKey": "document_definition_id"
         }
     }
 }

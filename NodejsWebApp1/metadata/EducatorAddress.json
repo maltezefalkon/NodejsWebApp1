@@ -14,7 +14,8 @@
         },
         "AddressTypeID": {
             "type": "UUID",
-            "field": "address_type_id"
+            "field": "address_type_id",
+            "primaryKey": true
         }
     },
     "Relationships": {

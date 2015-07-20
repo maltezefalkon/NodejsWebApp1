@@ -5,12 +5,14 @@
         "UserID": {
             "type": "UUID",
             "field": "user_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": true
         },
         "OrganizationID": {
             "type": "UUID",
             "field": "organization_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": true
         }
     },
     "Relationships": {

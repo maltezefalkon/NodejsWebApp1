@@ -27,6 +27,11 @@
             "RelationshipType": "hasMany",
             "RelatedTypeKey": "Tenure",
             "ForeignKey": "organization_id"
+        },
+        "Addresses": {
+            "RelationshipType": "hasMany",
+            "RelatedTypeKey": "OrganizationAddress",
+            "ForeignKey": "organization_id"
         }
     }
 }

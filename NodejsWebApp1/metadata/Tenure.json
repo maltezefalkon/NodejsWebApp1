@@ -5,12 +5,12 @@
         "EducatorID": {
             "type": "UUID",
             "field": "educator_id",
-            "primaryKey": true
+            "allowNull": false
         },
         "OrganizationID": {
             "type": "UUID",
             "field": "organization_id",
-            "primaryKey": true
+            "allowNull": false
         },
         "StartDate": {
             "type": "DATE",
@@ -21,6 +21,10 @@
             "type": "DATE",
             "field": "end_date",
             "allowNull": true
+        },
+        "PositionsHeld": {
+            "type": "STRING",
+            "field": "positions_held"
         }
     },
     "Relationships": {
