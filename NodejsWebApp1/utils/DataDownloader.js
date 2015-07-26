@@ -16,6 +16,13 @@ var list = [
     'UserOrganizationAuthorization'
 ];
 
+if (WScript.Arguments.length > 0) {
+    list = [];
+    for (var i = 0; i < WScript.Arguments.length; i++) {
+        list.push(WScript.Arguments.item(i));
+    }
+}
+
 var written = 0;
 
 var fso = WScript.CreateObject("Scripting.FileSystemObject");

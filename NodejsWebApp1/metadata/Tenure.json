@@ -2,6 +2,12 @@
     "TypeKey": "Tenure",
     "TableName": "tenure",
     "FieldDefinitions": {
+        "TenureID": {
+            "type": "UUID",
+            "field": "tenure_id",
+            "allowNull": false,
+            "primaryKey": true
+        },
         "EducatorID": {
             "type": "UUID",
             "field": "educator_id",

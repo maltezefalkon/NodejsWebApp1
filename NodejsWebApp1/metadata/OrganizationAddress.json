@@ -28,9 +28,9 @@
             "RelatedTypeKey": "Organization"
         },
         "Details": {
-            "RelationshipType": "hasOne",
-            "ForeignKey": "address_id",
-            "RelatedTypeKey": "Address"
+            "RelationshipType": "belongsTo",
+            "RelatedTypeKey": "Address",
+            "ForeignKey": "address_id"
         },
         "Type": {
             "RelationshipType": "belongsTo",

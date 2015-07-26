@@ -34,17 +34,9 @@ for (var i = 0; i < list.length; i++) {
         var request = WScript.CreateObject("MSXML2.XMLHTTP");
         request.open("POST", url, false);
         request.setRequestHeader("Content-type", "application/json");
-        request.onreadystatechange = createCallback(request, tk, url);
+        // request.onreadystatechange = createCallback(request, tk, url);
         WScript.Echo('POSTing to ' + url);
         request.send(contents); // Send the request now
+        WScript.Echo('Response: ' + request.responseText);
     }
-}
-
-function createCallback(request, tk, url) {
-    return function () {
-        if (request.readyState === 4 && request.status === 200) {
-            WScript.Echo('Successfully posted ' + tk + ' data to ' + url);
-            written++;
-        }
-    };
 }

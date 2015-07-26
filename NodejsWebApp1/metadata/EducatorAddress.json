@@ -19,16 +19,20 @@
         }
     },
     "Relationships": {
+        "Educator": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "educator_id",
+            "RelatedTypeKey": "Educator"
+        },
         "Details": {
-            "RelationshipType": "hasOne",
+            "RelationshipType": "belongsTo",
             "RelatedTypeKey": "Address",
             "ForeignKey": "address_id"
         },
         "Type": {
             "RelationshipType": "belongsTo",
-            "RelatedTypeKey": "AddressType",
             "ForeignKey": "address_type_id",
-            "TargetKey": "AddressTypeID"
+            "RelatedTypeKey": "AddressType"
         }
     }
 }

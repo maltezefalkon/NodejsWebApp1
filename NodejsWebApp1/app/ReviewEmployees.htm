@@ -4,15 +4,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
     <title>Manage Documents</title>
-    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
     <style type="text/css">
-        * { font-family: Tahoma; font-size: 14pt; }
-        tr.main th { font-size: 18pt; background-color: #EEEEEE; }
-        tr.selectable:hover { background-color: #DDEEFF; cursor:pointer; }
-        td, th { padding: 20px; text-wrap: none;  }
-        table { border: solid black 1px; }
+        * {
+            font-family: Tahoma;
+            font-size: 14pt;
+        }
+
+        tr.selectable:hover {
+            background-color: #DDEEFF;
+            cursor: pointer;
+        }
+
+        td, th {
+            padding: 20px;
+            text-wrap: none;
+            text-align: left;
+        }
+
+        tr.main-header th {
+            font-size: 18pt;
+            background-color: #EEEEEE;
+            text-align: center;
+        }
+
+        table {
+            border: solid black 1px;
+        }
+
+        #main {
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -22,40 +43,35 @@
     <script type="text/javascript">
         var app = angular.module('SafeApp', []);
         var ctl = app.controller('controller', ReviewEmployeesController);
-        ctl.$inject = [ '$scope', '$http' ];
+        ctl.$inject = ['$scope', '$http', '$location'];
     </script>
-    <div>
-        {{JSON.stringify(Organization)}}
+    <div id="main">
+        <table width="100%">
+            <tr class="main-header">
+                <th>{{Organization.Name}}</th>
+            </tr>
+            <tr>
+                <td>{{Organization.Addresses[0].Details.Address1}} {{Organization.Addresses[0].Details.Address2}} {{Organization.Addresses[0].Details.City}}, {{Organization.Addresses[0].Details.State}} {{Organization.Addresses[0].Details.ZipCode}}</td>
+            </tr>
+        </table>
+        <hr />
+        <table cellpadding="1" cellspacing="0" width="100%">
+            <tr class="main-header">
+                <th colspan="4">Employee Documentation Status</th>
+            </tr>
+            <tr>
+                <th>Employee</th>
+                <th>Position</th>
+                <th>Hire Date</th>
+                <th>Status</th>
+            </tr>
+            <tr ng-repeat="tenure in Organization.Tenures" class="selectable">
+                <td>{{tenure.Educator.Title}} {{tenure.Educator.FirstName}} {{tenure.Educator.LastName}}</td>
+                <td>{{tenure.PositionsHeld}}</td>
+                <td>{{tenure.StartDate | date}}</td>
+                <td><img src="images/greencheck.png" /></td>
+            </tr>
+        </table>
     </div>
-    <table width="100%">
-        <tr class="main">
-            <th>{{Organization.Name}}</th>
-        </tr>
-        <tr>
-            <td>{{Organization.Addresses[0].Details.Address1}} {{Organization.Addresses[0].Details.Address2}} {{Organization.Addresses[0].Details.City}}, {{Organization.Addresses[0].Details.State}} {{Organization.Addresses[0].Details.ZipCode}}</td>
-        </tr>
-    </table>
-    <hr />
-    <table cellpadding="1" cellspacing="0">
-        <tr class="main">
-            <th colspan="6">Active Employees</th>
-        </tr>
-        <tr>
-            <th>Employee</th>
-            <th>Position</th>
-            <th>Hire Date</th>
-            <th>Form 168</th>
-            <th>Fingerprint</th>
-            <th>Form 66</th>
-        </tr>
-        <tr ng-repeat="tenure in Organization.Tenures" class="selectable">
-            <td width="60%">{{tenure.Educator.Title}} {{tenure.Educator.FirstName}} {{tenure.Educator.LastName}}</td>
-            <td width="10%">{{tenure.PositionsHeld}}</td>
-            <td width="10%">{{tenure.StartDate | date}}</td>
-            <td>N</td>
-            <td>Y</td>
-            <td>Y</td>
-        </tr>
-    </table>
 </body>
 </html>
