@@ -1,3 +1,15 @@
+/*
+ * 
+ * DATA UPLOADER
+ * 
+ * This script populates data in the database by loading JSON files
+ * and posting it to the data server using XMLHTTP.
+ * 
+ * This is written the WScript way.  I should rewrite it the node way.
+ * 
+ */
+
+
 var list = [
     'Address',
     'AddressType',

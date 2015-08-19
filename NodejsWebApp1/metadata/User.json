@@ -16,6 +16,16 @@
             "type": "STRING",
             "field": "email_address",
             "allowNull": true
+        },
+        "Hash": {
+            "type": "STRING",
+            "field": "hash",
+            "allowNull": true
+        },
+        "Salt": {
+            "type": "STRING",
+            "field": "salt",
+            "allowNull": true
         }
     },
     "Relationships": {

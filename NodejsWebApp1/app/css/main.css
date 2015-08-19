@@ -1,0 +1,64 @@
+﻿* {
+    font-family: Tahoma;
+}
+
+div {
+    padding: 1px;
+    margin: 1px;
+}
+
+tr.selectable:hover {
+    background-color: #DDEEFF;
+    cursor: pointer;
+}
+
+td, th {
+    padding: 20px;
+    text-wrap: none;
+    text-align: left;
+}
+
+tr.main-header th {
+    font-size: 18pt;
+    background-color: #EEEEEE;
+    text-align: center;
+}
+
+table, .area {
+    border: solid black 3px;
+    overflow: hidden;
+    margin: 5px;
+}
+
+div.area {
+    padding: 10px;
+}
+
+.right-align {
+    float: right;
+    display: inline-block;
+}
+
+label {
+    width: 30%;
+    display: inline-block;
+    font-weight: bold;
+}
+
+input {
+    width: 60%;
+}
+
+.button {
+    background-color: navy;
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.error-message {
+    color: red;
+}
+

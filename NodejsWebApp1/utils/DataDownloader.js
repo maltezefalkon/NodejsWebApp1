@@ -1,3 +1,16 @@
+/*
+ * 
+ * DATA DOWNLOADER
+ * 
+ * This script calls to the data server for all of the data of a given type
+ * and writes it into separate JSON data files so that they can be loaded
+ * back into the database using the Data Uploader.
+ * 
+ * This is written the WScript way.  I should rewrite it the node way.
+ * 
+ */
+
+
 var request = WScript.CreateObject("MSXML2.XMLHTTP");
 
 var list = [

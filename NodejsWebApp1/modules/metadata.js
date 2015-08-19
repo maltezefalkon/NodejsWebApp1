@@ -1,20 +1,12 @@
 ﻿"use strict"
 
-// bunyan logger
-var Logger = require('bunyan');
-var log = new Logger({
-    name: 'metadata.js',
-    streams: [
-        {
-            level: 'debug',
-            path: './log/metadata.log'
-        }
-    ]
-});
+// logger
+var log = require('./logging.js')('metadata');
+var sqlLog = require('./logging.js')('sql');
 
 // sequelize ORM
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('safedb', 'readwrite', 'readwrite', { define: { timestamps: false, underscored: true  }, logging: function (msg) { log.info(msg); } });
+var sequelize = new Sequelize('safedb', 'readwrite', 'readwrite', { define: { timestamps: false, underscored: true  }, logging: function (msg) { sqlLog.info(msg); } });
 
 // file system access
 var fs = require('fs');

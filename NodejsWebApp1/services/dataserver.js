@@ -1,70 +1,83 @@
-﻿"use strict"
+﻿/*
+ * Data Server script
+ * 
+ */
+
+"use strict"
 
 // requires
 var http = require('http');
 var url = require('url');
 var queryString = require('querystring');
 var db = require('../modules/metadata');
-var Logger = require('bunyan');
-var log = new Logger({
-    name: 'main',
-    streams: [
-        {
-            level: 'debug',
-            path: './log/applogging.log'
-        }
-    ]
-});
+var log = require('../modules/logging')('dataserver');
+var uuid = require('uuid');
 
-// listen on port
-var port = process.env.port || 1337;
+// expose the getData method
+module.exports.getData = getData;
 
-var svr = http.createServer(function (req, res) {
+// expose the postData method
+module.exports.postData = postData;
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// public functions
     
+function getData(req, res) {
+    
+    // express routing parameters for root type and joins
+    var typeKey = req.params.type;
+    var joins = req.params.joins;
+    
+    // query string (filter)
     var thisUrl = url.parse(req.url, true);
     var condition = thisUrl.query;
-    var pathArray = thisUrl.pathname.split('/').splice(1);
-    var typeName = pathArray[0];
     
     if (req.method == "GET") {
-        res.writeHead(200, { 'Content-Type' : 'application/json' });
-        res.writeHead(200, { 'Access-Control-Allow-Origin': '*' });
         var properties = [];
-        if (pathArray.length > 1) {
-            properties = pathArray[1].split(',');
+        if (joins) {
+            properties = joins.split(',');
         }
-        var includes = BuildIncludes(db, typeName, properties);
-        if (db[typeName]) {
-            db[typeName].findAll({ where: condition, include: includes }).then(
+        var includes = buildIncludes(db, typeKey, properties);
+        if (db[typeKey]) {
+            db[typeKey].findAll({ where: condition, include: includes }).then(
                 function (results) {
-                    res.write(JSON.stringify(results));
+                    res.send(results);
                     res.end();
                 });
+        } else {
+            throw "Undefined type name: " + typeKey;
         }
-    } else if (req.method == "POST") {
-        var body = '';
-        req.on('data', function (data) {
-            body += data;
-        });
-        req.on('end', function () {
-            log.debug("Request Body: " + body);
-            var raw = JSON.parse(body);
-            if (raw instanceof Array) {
-                log.debug('Saving an array of ' + raw.length.toString() + ' ' + typeName);
-                for (var i = 0; i < raw.length; i++) {
-                    SaveObject(typeName, raw[i], res, body);
-                }
-            } else {
-                log.debug('Saving a single ' + typeName);
-                SaveObject(typeName, raw, res, body);
-            }
-        });
+    } else {
+        throw "Invalid verb routed to getData method";
     }
-});
-svr.listen(port);
-// ------------------------------
+}
 
-function BuildIncludes(db, contextTypeKey, paths) {
+function postData(req, res) {
+    
+    // express route parameter for type name
+    var typeKey = req.params.type;
+
+    if (req.method == "POST") {
+        if (req.body instanceof Array) {
+            log.debug('Saving an array of ' + req.body.length.toString() + ' ' + typeKey);
+            for (var i = 0; i < req.body.length; i++) {
+                saveObject(typeKey, req.body[i], res);
+            }
+        } else {
+            log.debug('Saving a single ' + typeKey);
+            saveObject(typeKey, req.body, res);
+        }
+    } else {
+        throw "Invalid verb routed to postData method";
+    }
+}
+
+// --------------------------------------------------------------------------------------------------------------------
+
+// private functions
+
+function buildIncludes(db, contextTypeKey, paths) {
     var ret = [];
     var map = {};
     for (var i = 0; i < paths.length; i++) {
@@ -104,15 +117,33 @@ function BuildIncludes(db, contextTypeKey, paths) {
     return ret;
 }
 
-function SaveObject(typeName, o, res, body) {
-    log.debug('saving ' + typeName);
-    db[typeName].upsert(o).then(function () {
-        log.info('Saved', o);
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(body);
+function saveObject(typeKey, o, res) {
+    var insert = supplyKeyIfNecessary(typeKey, o);
+    if (insert) {
+        log.info('Inserting ' + typeKey);
+    } else {
+        log.info('Updating ' + typeKey);
+    }
+    db[typeKey].upsert(o).then(function () {
+        log.info({ insert: insert, typeKey: typeKey, object: o }, 'Saved');
+        res.send(o);
+        res.end();
     }).catch(function (err) {
-        log.error('Error Saving', err);
-        res.writeHead(409, { 'Content-Type': 'application/text' });
-        res.end("" + err);
+        log.error({ err: err, typeKey: typeKey, insert: insert, object: o }, 'Error Saving object');
+        res.end('' + err);
     });
+}
+
+function supplyKeyIfNecessary(typeKey, o) {
+    var ret = false;
+    for (var f in db.Metadata[typeKey].FieldDefinitions) {
+        if (db.Metadata[typeKey].FieldDefinitions[f].primaryKey && !o[f]) {
+            var id = uuid();
+            log.debug({ newid: id, field: f, typeKey: typeKey }, 'Supplied key value "' + id + '" for field "' + f + '" for insert of type "' + typeKey + '"');
+            o[f] = id;
+            ret = true;
+            break;
+        }
+    }
+    return ret;
 }

@@ -30,6 +30,11 @@
             "RelationshipType": "hasMany",
             "RelatedTypeKey": "Tenure",
             "ForeignKey": "educator_id"
+        },
+        "Documents": {
+            "RelationshipType": "hasMany",
+            "RelatedTypeKey": "DocumentInstance",
+            "ForeignKey": "educator_id"
         }
     }
 }

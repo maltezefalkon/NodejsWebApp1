@@ -15,13 +15,30 @@
         "EducatorID": {
             "type": "UUID",
             "field": "educator_id"
+        },
+        "DocumentDate": {
+            "type": "DATEONLY",
+            "field": "document_date"
+        },
+        "UploadDateTime": {
+            "type": "DATE",
+            "field": "upload_datetime"
+        },
+        "TenureID": {
+            "type": "UUID",
+            "field": "tenure_id"
         }
     },
     "Relationships": {
         "Definition": {
-            "RelationshipType": "hasOne",
-            "RelatedTypeKey": "DocumentDefinition",
-            "ForeignKey": "document_definition_id"
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "document_definition_id",
+            "RelatedTypeKey": "DocumentDefinition"
+        },
+        "Educator": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "educator_id",
+            "RelatedTypeKey": "Educator"
         }
     }
 }
