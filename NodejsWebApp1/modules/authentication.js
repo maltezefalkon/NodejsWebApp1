@@ -24,7 +24,8 @@ module.exports = function (app, loginHandlerPath, loginPagePath, defaultPagePath
             if (err) {
                 return next(err);
             } else if (!user) {
-                return res.redirect(loginPagePath + '?message=' + info.message);
+                var username = req.body.username;
+                return res.redirect(loginPagePath + '?message=' + encodeURIComponent(info.message) + '&UserName=' + encodeURIComponent(username));
             } else {
                 req.logIn(user, function (err) {
                     if (err) {
@@ -48,11 +49,14 @@ function setupStrategy(app, path) {
             db.User.findOne(query)
                 .then(function (user) {
                         log.debug({ user: user }, 'user retrieved successfully');
-                        if (bcrypt.compareSync(password, user.Hash)) {
+                        if (!user) {
+                            log.debug('user not found');
+                            done(null, false, { message: 'User not found' });
+                        } else if (bcrypt.compareSync(password, user.Hash)) {
                             log.debug('password matched');
                             done(null, user);
                         } else {
-                            done(null, user, { message: 'Incorrect password.' });
+                            done(null, false, { message: 'Incorrect password.' });
                         }
                     })
                 .catch(function (err) {
@@ -62,29 +66,6 @@ function setupStrategy(app, path) {
         }
     ));
     
-    /*
-    // doing things by ID
-    passport.serializeUser(function (req, user, done) {
-        log.debug({ user: user }, 'serializeUser called (ID version)');
-        done(null, user.UserID);
-    });
-    passport.deserializeUser(function (req, id, done) {
-        log.debug({ UserID: id, req: req }, 'deserializeUser called (ID version)');
-        var query = { where: { UserID: id } };
-        // findById doesn't work for some reason
-        db.User.findOne(query)
-            .then(function (user) {
-                log.debug({ user: user }, 'User successfully deserialized (ID version)');
-                done(null, user);
-            })
-            .catch(function (err) {
-                log.debug({ error: err }, 'Error deserializing user (ID version)');
-                done(null, false);
-            });
-    });
-    */
-
-    // doing things by object
     passport.serializeUser(function (req, user, done) {
         log.debug({ user: user }, 'serializeUser called (object version)');
         done(null, user);

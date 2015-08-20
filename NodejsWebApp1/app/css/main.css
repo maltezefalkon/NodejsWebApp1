@@ -24,7 +24,7 @@ tr.main-header th {
     text-align: center;
 }
 
-table, .area {
+.area {
     border: solid black 3px;
     overflow: hidden;
     margin: 5px;
@@ -60,5 +60,10 @@ input {
 
 .error-message {
     color: red;
+}
+
+table {
+    padding: 0px;
+    margin: 0px;
 }
 

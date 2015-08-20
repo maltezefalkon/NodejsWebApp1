@@ -5,7 +5,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>NodejsWebApp1</Name>
     <RootNamespace>NodejsWebApp1</RootNamespace>
-    <LaunchUrl>http://localhost:1337/app/Login.html</LaunchUrl>
+    <LaunchUrl>http://localhost:1337/app/Signup.html</LaunchUrl>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -32,8 +32,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app\controllers\LoginController.js" />
+    <Content Include="app\controllers\SignupController.js" />
+    <Content Include="app\util\util.js" />
+    <Compile Include="modules\api.js" />
     <Compile Include="modules\authentication.js" />
     <Compile Include="modules\logging.js" />
+    <Compile Include="services\signupserver.js" />
     <Compile Include="utils\Hash.js" />
     <Compile Include="utils\Salt.js" />
     <Compile Include="_other\Snippets.js" />
@@ -52,7 +56,8 @@
     <Content Include="app\images\greencheck.png" />
     <Content Include="app\images\PDF-icon.gif" />
     <Content Include="app\images\redx.png" />
-    <Content Include="app\LoginFailed.html" />
+    <Content Include="app\Signup.html" />
+    <Content Include="app\ValidationMessages.html" />
     <Content Include="data\Address.json" />
     <Content Include="data\AddressType.json" />
     <Content Include="data\DocumentDefinition.json" />
@@ -83,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\css\" />
+    <Folder Include="app\util\" />
     <Folder Include="modules\" />
     <Folder Include="app\images\" />
     <Folder Include="_other\" />

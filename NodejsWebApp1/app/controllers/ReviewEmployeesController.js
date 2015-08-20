@@ -3,6 +3,7 @@
     FetchData($scope, $http, $location);
     $scope.HasDocument = HasDocument;
     $scope.ValidateDocuments = ValidateDocuments;
+    this.DocumentDefinitions = $scope.DocumentDefinitions;
 }
 
 function FetchData($scope, $http, $location)
@@ -49,8 +50,8 @@ function CreateDocumentInstanceHyperlink(tenure, definition) {
 }
 
 function ValidateDocuments(tenure) {
-    for (var i = 0; i < $scope.DocumentDefinitions.length; i++) {
-        if (!HasDocument(tenure, $scope.DocumentDefinitions[i])) {
+    for (var i = 0; i < this.DocumentDefinitions.length; i++) {
+        if (!HasDocument(tenure, this.DocumentDefinitions[i])) {
             return false;
         }
     }

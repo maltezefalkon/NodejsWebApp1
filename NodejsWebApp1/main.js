@@ -7,6 +7,7 @@
 // imports
 var express = require('express');
 var dataServices = require('./services/dataserver.js');
+var signupServices = require('./services/signupserver.js');
 var log = require('./modules/logging.js')('main');
 var requestLog = require('./modules/logging.js')('requests');
 var bodyParser = require('body-parser');
@@ -37,17 +38,6 @@ app.use('/api', bodyParser.json({ strict: true }));
 // set up passport authentication
 var passport = require('./modules/authentication.js')(app, '/login', '/app/Login.html', '/app/ReviewEmployees.html');
 
-// this was to make sure sessions worked
-//app.use(function (req, res, next) {
-//    if (req.session.hits) {
-//        req.session.hits++;
-//    } else {
-//        req.session.hits = 1;
-//    }
-//    log.debug({ session: req.session });
-//    next();
-//});
-
 // ============
 // ROUTES
 
@@ -55,6 +45,11 @@ var passport = require('./modules/authentication.js')(app, '/login', '/app/Login
 app.get('/api/:type/:joins?', dataServices.getData);
 // API posts (inserts/updates)
 app.post('/api/:type', dataServices.postData);
+
+// signup routes
+app.use('/signup', bodyParser.urlencoded({ extended: false }));
+app.get('/signup/:OrganizationID?', signupServices.getSignupData);
+app.post('/signup', signupServices.postSignupData);
 
 // =============
 

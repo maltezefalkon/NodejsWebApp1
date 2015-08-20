@@ -21,37 +21,54 @@
         ctl.$inject = ['$scope', '$http', '$location'];
     </script>
     <div id="main">
-        <table width="100%">
-            <tr class="main-header">
-                <th>{{Organization.Name}}</th>
-            </tr>
-            <tr>
-                <td>{{Organization.Addresses[0].Details.Address1}} {{Organization.Addresses[0].Details.Address2}} {{Organization.Addresses[0].Details.City}}, {{Organization.Addresses[0].Details.State}} {{Organization.Addresses[0].Details.ZipCode}}</td>
-            </tr>
-        </table>
-        <hr />
-        <table cellpadding="1" cellspacing="0" width="100%">
-            <tr class="main-header">
-                <th colspan="4">Employee Documentation Status</th>
-            </tr>
-            <tr>
-                <th>Employee</th>
-                <th>Position</th>
-                <th>Hire Date</th>
-                <th ng-repeat="def in DocumentDefinitions">
-                    {{def.Name}}
-                </th>
-                <th>Status</th>
-            </tr>
-            <tr ng-repeat="tenure in Organization.Tenures" class="selectable">
-                <td>{{tenure.Educator.Title}} {{tenure.Educator.FirstName}} {{tenure.Educator.LastName}}</td>
-                <td>{{tenure.PositionsHeld}}</td>
-                <td>{{tenure.StartDate | date}}</td>
-                <td ng-repeat="def in DocumentDefinitions"><a href="http://google.com" ng-show="HasDocument(tenure, def)"><img src="images/PDF-icon.gif" border="0" /></a></td>
-                <td><img ng-show="ValidateDocuments(tenure, def)" src="images/greencheck.png" />
-                    <img ng-hide="ValidateDocuments(tenure, def)" src="images/redx.png" /></td>
-            </tr>
-        </table>
+        <div class="area">
+            <table width="100%">
+                <tr class="main-header">
+                    <th colspan="10">{{Organization.Name}}</th>
+                </tr>
+                <tr>
+                    <td colspan="10">{{Organization.Addresses[0].Details.Address1}} {{Organization.Addresses[0].Details.Address2}} {{Organization.Addresses[0].Details.City}}, {{Organization.Addresses[0].Details.State}} {{Organization.Addresses[0].Details.ZipCode}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#">Generate User Signup Link</a>
+                    </td>
+                    <td>
+                        <a href="#">Generate Applicant Signup Email</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="area">
+            <table cellpadding="1" cellspacing="0" width="100%">
+                <tr class="main-header">
+                    <th ng-attr-colspan="{{DocumentDefinitions.length + 4}}">Employee Documentation Status</th>
+                </tr>
+                <tr>
+                    <th>Employee</th>
+                    <th>Position</th>
+                    <th>Hire Date</th>
+                    <th ng-repeat="def in DocumentDefinitions">
+                        {{def.Name}}
+                    </th>
+                    <th>Status</th>
+                </tr>
+                <tr ng-repeat="tenure in Organization.Tenures" class="selectable">
+                    <td>{{tenure.Educator.Title}} {{tenure.Educator.FirstName}} {{tenure.Educator.LastName}}</td>
+                    <td>{{tenure.PositionsHeld}}</td>
+                    <td>{{tenure.StartDate | date}}</td>
+                    <td ng-repeat="def in DocumentDefinitions">
+                        <a href="http://google.com" ng-show="HasDocument(tenure, def)">
+                            <img src="images/PDF-icon.gif" border="0" />
+                        </a>
+                    </td>
+                    <td>
+                        <img ng-show="ValidateDocuments(tenure, def)" src="images/greencheck.png" />
+                        <img ng-show="!ValidateDocuments(tenure, def)" src="images/redx.png" />
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 </html>

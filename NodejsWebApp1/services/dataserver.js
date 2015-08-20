@@ -33,6 +33,8 @@ function getData(req, res) {
     var thisUrl = url.parse(req.url, true);
     var condition = thisUrl.query;
     
+    // TODO: check permissions on data!
+
     if (req.method == "GET") {
         var properties = [];
         if (joins) {
@@ -46,7 +48,7 @@ function getData(req, res) {
                     res.end();
                 });
         } else {
-            throw "Undefined type name: " + typeKey;
+            throw "Undefined type key: " + typeKey;
         }
     } else {
         throw "Invalid verb routed to getData method";
@@ -57,6 +59,8 @@ function postData(req, res) {
     
     // express route parameter for type name
     var typeKey = req.params.type;
+    
+    // TODO: check permissions on data!
 
     if (req.method == "POST") {
         if (req.body instanceof Array) {
