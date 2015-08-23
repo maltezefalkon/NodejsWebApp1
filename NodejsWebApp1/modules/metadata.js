@@ -11,44 +11,59 @@ var sequelize = new Sequelize('safedb', 'readwrite', 'readwrite', { define: { ti
 // file system access
 var fs = require('fs');
 
-log.info('setting up database');
-
-var db = 
- {
-    Sequelize: sequelize,
-    Metadata: {}
-};
-var metadataFiles = fs.readdirSync('metadata');
-for (var i = 0; i < metadataFiles.length; i++) {
-    log.debug('processing metadata file ' + metadataFiles[i]);
-    DbDefine(db, fs, 'metadata/' + metadataFiles[i]);
-}
-log.debug('setting up relationsips');
-SetupRelationships(db);
-
 // update the database to match our metadata
 // sequelize.sync({ force: true });
 
-// done!
-module.exports = db;
+module.exports = function (metadataFolder) {
+    log.info('setting up database');
+    var ret = 
+    {
+        Sequelize: sequelize,
+        db: {},
+        Metadata: {},
+        bo: {}
+    };
+    var metadataPath = metadataFolder || 'metadata';
+    var metadataFiles = fs.readdirSync(metadataPath);
+    for (var i = 0; i < metadataFiles.length; i++) {
+        log.debug('processing metadata file ' + metadataFiles[i]);
+        DbDefine(sequelize, ret.db, ret.Metadata, fs, metadataPath + '/' + metadataFiles[i]);
+    }
+    log.debug('setting up relationsips');
+    SetupRelationships(ret.db, ret.Metadata);
+    SetupClasses(ret.Metadata, ret.bo);
+    return ret;
+};
 
 // ====================================================================================================================================================
 
-function DbDefine(db, fs, filePath) {
+function DbDefine(sequelize, dbDictionary, metadataDictionary, fs, filePath) {
     var content = fs.readFileSync(filePath, "utf8");
-    var metadata = JSON.parse(content.trim());
+    var metadata = null;
+    try {
+        metadata = JSON.parse(content.trim());
+    } catch (err) {
+        throw new Error('Error parsing ' + filePath + ': ' + err);
+    }
+    metadata.PrimaryKeyFields = [];
     for (var f in metadata.FieldDefinitions) {
         metadata.FieldDefinitions[f].type = Sequelize[metadata.FieldDefinitions[f].type]();
+        if (metadata.FieldDefinitions[f].defaultValue === "NOW") {
+            metadata.FieldDefinitions[f].defaultValue = sequelize.fn('CURRENT_TIMESTAMP');
+        }
+        if (metadata.FieldDefinitions[f].primaryKey) {
+            metadata.PrimaryKeyFields.push(f);
+        }
     }
-    db.Metadata[metadata.TypeKey] = metadata;
-    db[metadata.TypeKey] = db.Sequelize.define(metadata.TypeKey, metadata.FieldDefinitions, { tableName: metadata.TableName });
+    metadataDictionary[metadata.TypeKey] = metadata;
+    dbDictionary[metadata.TypeKey] = sequelize.define(metadata.TypeKey, metadata.FieldDefinitions, { tableName: metadata.TableName });
 }
 
-function SetupRelationships(db) {
-    for (var typeKey in db.Metadata) {
-        var sequelizeModel = db[typeKey];
-        for (var rel in db.Metadata[typeKey].Relationships) {
-            var relationship = db.Metadata[typeKey].Relationships[rel];
+function SetupRelationships(dbDictionary, metadataDictionary) {
+    for (var typeKey in metadataDictionary) {
+        var sequelizeModel = dbDictionary[typeKey];
+        for (var rel in metadataDictionary[typeKey].Relationships) {
+            var relationship = metadataDictionary[typeKey].Relationships[rel];
             var opts = { as: rel };
             if (relationship.Through) {
                 opts['through'] = relationship.Through;
@@ -61,16 +76,16 @@ function SetupRelationships(db) {
             }
             if (relationship.RelationshipType == 'hasMany') {
                 log.debug(typeKey + ' hasMany ' + relationship.RelatedTypeKey);
-                sequelizeModel.hasMany(db[relationship.RelatedTypeKey], opts);
+                sequelizeModel.hasMany(dbDictionary[relationship.RelatedTypeKey], opts);
             } else if (relationship.RelationshipType == 'belongsToMany') {
                 log.debug(typeKey + ' belongsToMany ' + relationship.RelatedTypeKey);
-                sequelizeModel.belongsToMany(db[relationship.RelatedTypeKey], opts);
+                sequelizeModel.belongsToMany(dbDictionary[relationship.RelatedTypeKey], opts);
             } else if (relationship.RelationshipType == 'hasOne') {
                 log.debug(typeKey + ' hasOne ' + relationship.RelatedTypeKey);
-                sequelizeModel.hasOne(db[relationship.RelatedTypeKey], opts);
+                sequelizeModel.hasOne(dbDictionary[relationship.RelatedTypeKey], opts);
             } else if (relationship.RelationshipType == 'belongsTo') {
                 log.debug(typeKey + ' belongsTo ' + relationship.RelatedTypeKey);
-                sequelizeModel.belongsTo(db[relationship.RelatedTypeKey], opts);
+                sequelizeModel.belongsTo(dbDictionary[relationship.RelatedTypeKey], opts);
             } else {
                 throw 'Unrecognized RelationshipType: "' + relationship.RelationshipType + '"';
             }
@@ -78,3 +93,10 @@ function SetupRelationships(db) {
     }
 }
 
+function SetupClasses(metadataDictionary, boFunctionDictionary) {
+    for (var typeKey in metadataDictionary) {
+        boFunctionDictionary[typeKey] = function () {
+            this._TypeKey = typeKey;
+        };
+    }
+}

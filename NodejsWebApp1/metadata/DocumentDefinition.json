@@ -13,5 +13,12 @@
             "field": "name",
             "allowNull": false
         }
+    },
+    "Relationships": {
+        "Fields": {
+            "RelationshipType": "hasMany",
+            "RelatedTypeKey": "DocumentDefinitionField",
+            "ForeignKey": "document_definition_id"
+        }
     }
 }

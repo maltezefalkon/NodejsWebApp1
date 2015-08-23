@@ -36,7 +36,14 @@ div.area {
 
 .right-align {
     float: right;
+}
+
+.inline-block {
     display: inline-block;
+}
+
+.rightmost {
+    clear: right;
 }
 
 label {
@@ -45,7 +52,7 @@ label {
     font-weight: bold;
 }
 
-input {
+input, select {
     width: 60%;
 }
 

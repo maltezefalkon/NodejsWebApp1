@@ -5,34 +5,44 @@
         "UserID": {
             "type": "UUID",
             "field": "user_id",
-            "primaryKey": true
+            "primaryKey": true,
+            "allowNull": false
         },
         "UserName": {
             "type": "STRING",
             "field": "user_name",
-            "allowNull": true
+            "unique": true,
+            "allowNull": false
         },
         "EmailAddress": {
             "type": "STRING",
             "field": "email_address",
-            "allowNull": true
+            "allowNull": false
         },
         "Hash": {
             "type": "STRING",
             "field": "hash",
-            "allowNull": true
+            "allowNull": false
+        },
+        "LinkedOrganizationID": {
+            "type": "UUID",
+            "field": "linked_organization_id"
+        },
+        "LinkedEducatorID": {
+            "type": "UUID",
+            "field": "linked_educator_id"
         }
     },
     "Relationships": {
-        "EducatorAuthorizations": {
-            "RelationshipType": "hasMany",
-            "RelatedTypeKey": "UserEducatorAuthorization",
-            "ForeignKey": "user_id"
+        "LinkedOrganization": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "linked_organization_id",
+            "RelatedTypeKey": "Organization"
         },
-        "OrganizationAuthorizations": {
-            "RelationshipType": "hasMany",
-            "RelatedTypeKey": "UserOrganizationAuthorization",
-            "ForeignKey": "user_id"
+        "LinkedEducator": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "linked_educator_id",
+            "RelatedTypeKey": "Educator"
         }
     }
 }

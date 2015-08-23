@@ -1,6 +1,6 @@
 ﻿// imports
 var passport = require('passport');
-var db = require('./metadata.js');
+var meta = require('./metadata.js')();
 var log = require('./logging.js')('authentication');
 var uuid = require('uuid');
 var session = require('express-session');
@@ -46,7 +46,7 @@ function setupStrategy(app, path) {
         function (username, password, done) {
             log.debug({ username: username, password: password, done: done }, 'LocalStrategy authentication method invoked');
             var query = { where: { UserName: username } };
-            db.User.findOne(query)
+            meta.db.User.findOne(query)
                 .then(function (user) {
                         log.debug({ user: user }, 'user retrieved successfully');
                         if (!user) {

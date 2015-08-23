@@ -21,7 +21,7 @@ module.exports.postSignupData = postSignupData;
 // public functions
 
 function getSignupData(req, res) {
-    var redirPath = '/app/Signup.html';
+    var redirPath = '/app/EducatorSignup.html';
     if (req.params.OrganizationID) {
         redirPath += '?OrganizationID=' + req.params.OrganizationID;
     }
@@ -30,33 +30,53 @@ function getSignupData(req, res) {
 
 function postSignupData(req, res) {
     
-    var organizationID = req.body.OrganizationID;
-    var dateHired = req.body.DateHired;
-    var emailAddress = req.body.EmailAddress;
-    var title = req.body.Title;
-    var firstName = req.body.FirstName;
-    var lastName = req.body.LastName;
-    var password = req.body.Password;
-
+    var data = req.body;
+    
     // TODO: check permissions on data!
     
     if (req.method == "POST") {
-        var hash = bcrypt.hashSync(password);
+        
+        var educator = {
+            _TypeKey: 'Educator',
+            Title: data.Title,
+            FirstName: data.FirstName,
+            MiddleName: data.MiddleName,
+            LastName: data.LastName,
+            Suffix: data.Suffix,
+            FormerName: data.FormerName,
+            DateOfBirth: data.DateOfBirth,
+            Last4: data.Last4,
+            PPID: data.PPID,
+            EmailAddress: data.EmailAddress,
+            TelephoneNumber: data.TelephoneNumber,
+            Address1: data.Address1,
+            Address2: data.Address2,
+            City: data.City,
+            State: data.State,
+            ZipCode: data.ZipCode
+        };
+        
+        var hash = bcrypt.hashSync(data.Password);
         var user = {
-            EmailAddress: emailAddress,
-            UserName: emailAddress,
+            _TypeKey: 'User',
+            EmailAddress: data.EmailAddress,
+            UserName: data.EmailAddress,
             Hash: hash
         };
-
-        log.debug({ user: user }, 'Creating user');
         
-        // create a User
-        api.save('User', user, function (saved) {
-            res.redirect('app/Login.html?UserName=' + encodeURIComponent(saved.UserName));
+        educator.LinkedUser = user;
+        
+        log.debug({ educator: educator }, 'Creating signup objects');
+        
+        api.save([educator])
+            .then(function () {
+            res.redirect('/app/Login.html?UserName=' + encodeURIComponent(user.UserName));
+            res.end();
+        }, function (err) {
+            res.send(err);
+            res.end();
         });
-
-        // create an Educator
-
+    
     } else {
         throw "Invalid verb routed to postSignupData method";
     }

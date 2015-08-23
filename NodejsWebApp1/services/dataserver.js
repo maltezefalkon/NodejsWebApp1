@@ -6,10 +6,9 @@
 "use strict"
 
 // requires
-var http = require('http');
 var url = require('url');
 var queryString = require('querystring');
-var db = require('../modules/metadata');
+var meta = require('../modules/metadata')();
 var log = require('../modules/logging')('dataserver');
 var uuid = require('uuid');
 
@@ -40,9 +39,9 @@ function getData(req, res) {
         if (joins) {
             properties = joins.split(',');
         }
-        var includes = buildIncludes(db, typeKey, properties);
-        if (db[typeKey]) {
-            db[typeKey].findAll({ where: condition, include: includes }).then(
+        var includes = buildIncludes(meta, typeKey, properties);
+        if (meta.db[typeKey]) {
+            meta.db[typeKey].findAll({ where: condition, include: includes }).then(
                 function (results) {
                     res.send(results);
                     res.end();
@@ -58,20 +57,33 @@ function getData(req, res) {
 function postData(req, res) {
     
     // express route parameter for type name
-    var typeKey = req.params.type;
+    var typeKeyParamValue = req.params.type;
     
     // TODO: check permissions on data!
 
     if (req.method == "POST") {
-        if (req.body instanceof Array) {
-            log.debug('Saving an array of ' + req.body.length.toString() + ' ' + typeKey);
-            for (var i = 0; i < req.body.length; i++) {
-                saveObject(typeKey, req.body[i], res);
+        meta.Sequelize.transaction(function (txn) {
+            var promise = null;
+            if (req.body instanceof Array) {
+                log.debug({ array: req.body, typeKeyUrlParameter: typeKeyParamValue }, 'Saving an array of ' + req.body.length.toString() + ' ' + (typeKeyParamValue || 'objects'));
+                // using foreach because it provides clean closure over each value
+                req.body.forEach(function (o, i) {
+                    if (null == promise) {
+                        promise = saveObject(typeKeyParamValue, o, txn);
+                    } else {
+                        promise = promise.then(function () {
+                            return saveObject(typeKeyParamValue, o, txn);
+                        });
+                    }
+                });
+            } else {
+                log.debug({ object: req.body, typeKeyUrlParameter: typeKeyParamValue }, 'Saving a single ' + (typeKeyParamValue || req.body._TypeKey));
+                promise = saveObject(typeKeyParamValue, req.body, txn);
             }
-        } else {
-            log.debug('Saving a single ' + typeKey);
-            saveObject(typeKey, req.body, res);
-        }
+            log.debug({ promise: promise }, 'ready to return final promise');
+            return promise;
+        })
+        .then(function () { completeSuccessfully(req, res); }, function (err) { completeError(err, req, res); });
     } else {
         throw "Invalid verb routed to postData method";
     }
@@ -81,7 +93,20 @@ function postData(req, res) {
 
 // private functions
 
-function buildIncludes(db, contextTypeKey, paths) {
+function completeSuccessfully(req, res) {
+    log.debug('completeSuccessfully invoked');
+    res.send(req.body);
+    res.end();
+}
+
+function completeError(err, req, res) {
+    log.debug('completeError invoked');
+    res.status = 500;
+    res.send(err);
+    res.end();
+}
+
+function buildIncludes(meta, contextTypeKey, paths) {
     var ret = [];
     var map = {};
     for (var i = 0; i < paths.length; i++) {
@@ -99,8 +124,8 @@ function buildIncludes(db, contextTypeKey, paths) {
             currentInclude = map[thisPath];
         }
         while (head) {
-            currentTypeKey = db.Metadata[currentTypeKey].Relationships[head].RelatedTypeKey;
-            currentInclude['model'] = db[currentTypeKey];
+            currentTypeKey = meta.Metadata[currentTypeKey].Relationships[head].RelatedTypeKey;
+            currentInclude['model'] = meta.db[currentTypeKey];
             head = parsed.shift();
             if (head) {
                 thisPath += '.' + head;
@@ -121,33 +146,94 @@ function buildIncludes(db, contextTypeKey, paths) {
     return ret;
 }
 
-function saveObject(typeKey, o, res) {
-    var insert = supplyKeyIfNecessary(typeKey, o);
-    if (insert) {
-        log.info('Inserting ' + typeKey);
-    } else {
-        log.info('Updating ' + typeKey);
+function saveObject(typeKeyParamValue, o, txn) {
+    var typeKey = typeKeyParamValue || o._TypeKey;
+    if (!typeKey) {
+        throw new Error('Could not infer type key for object');
     }
-    db[typeKey].upsert(o).then(function () {
-        log.info({ insert: insert, typeKey: typeKey, object: o }, 'Saved');
-        res.send(o);
-        res.end();
-    }).catch(function (err) {
-        log.error({ err: err, typeKey: typeKey, insert: insert, object: o }, 'Error Saving object');
-        res.end('' + err);
+    var insert = supplyKeyIfNecessary(typeKey, o);
+    var msg = { operation: insert ? 'insert' : 'update', typeKey: typeKey, obj: o };
+    if (insert) {
+        log.info(msg, 'Inserting ' + typeKey);
+    } else {
+        log.info(msg, 'Updating ' + typeKey);
+    }
+    // call the upsert
+    var ret = meta.db[typeKey].upsert(o, { transaction: txn }).then(function (result) {
+        log.info('Saved ' + typeKey + ' successfully');
     });
-}
-
-function supplyKeyIfNecessary(typeKey, o) {
-    var ret = false;
-    for (var f in db.Metadata[typeKey].FieldDefinitions) {
-        if (db.Metadata[typeKey].FieldDefinitions[f].primaryKey && !o[f]) {
-            var id = uuid();
-            log.debug({ newid: id, field: f, typeKey: typeKey }, 'Supplied key value "' + id + '" for field "' + f + '" for insert of type "' + typeKey + '"');
-            o[f] = id;
-            ret = true;
-            break;
+    
+    // save subobjects
+    for (var r in meta.Metadata[typeKey].Relationships) {
+        log.debug('Examining relationship ' + r + ' on type ' + typeKey);
+        if (o[r]) {
+            ret = chainSubobjectSave(o[r], r, typeKey, txn, ret, o)
         }
     }
     return ret;
 }
+
+function chainSubobjectSave(related, r, typeKey, txn, outerPromise) {
+    return outerPromise.then(function () {
+        log.debug('inside subobject then for ' + r);
+        return saveSubobjectsForRelationship(related, r, typeKey, txn, outerPromise);
+    });
+}
+
+function saveSubobjectsForRelationship(related, r, typeKey, txn, outerPromise) {
+    var relationship = meta.Metadata[typeKey].Relationships[r];
+    var ret = outerPromise;
+    if (related instanceof Array) {
+        log.debug({ relationshipName: r, relationship: relationship }, 'found an array of subobjects for relationship');
+        related.forEach(function (subobject) {
+            ret = ret.then(function () {
+                log.debug('calling saveObject for subobject array for relationship ' + r);
+                return saveObject(relationship.RelatedTypeKey, subobject, txn);
+            });
+        });
+    } else {
+        log.debug({ relationshipName: r, relationship: relationship }, 'found a single subobject for relationship');
+        ret = ret.then(function () {
+            log.debug('calling saveObject for single subobject for relationship ' + r);
+            return saveObject(relationship.RelatedTypeKey, related, txn);
+        });
+    }
+    return ret;
+}
+
+function supplyKeyIfNecessary(typeKey, o) {
+    var ret = undefined;
+    
+    if (meta.Metadata[typeKey].PrimaryKeyFields.length == 1) {
+        var f = meta.Metadata[typeKey].PrimaryKeyFields[0];
+        ret = uuid();
+        log.debug({ newid: ret, field: f, typeKey: typeKey }, 'Supplied key value "' + ret + '" for field "' + f + '" for insert of type "' + typeKey + '"');
+        o[f] = ret;
+        
+        // propagate key to subobjects
+        for (var r in meta.Metadata[typeKey].Relationships) {
+            var relationship = meta.Metadata[typeKey].Relationships[r];
+            if (o[r]) {
+                var fkeyProperty = null;
+                for (var fdef in meta.Metadata[relationship.RelatedTypeKey].FieldDefinitions) {
+                    if (meta.Metadata[relationship.RelatedTypeKey].FieldDefinitions[fdef].field == relationship.ForeignKey) {
+                        fkeyProperty = fdef;
+                        break;
+                    }
+                }
+                if (!fkeyProperty) {
+                    throw new Error('Failed to find a corresponding property on type ' + r.RelatedTypeKey + ' for field ' + r.ForeignKey);
+                }
+                if (o[r] instanceof Array) {
+                    o[r].forEach(function (subobject) {
+                        subobject[fkeyProperty] = ret;
+                    });
+                } else {
+                    o[r][fkeyProperty] = ret;
+                }
+            }
+        }
+    }
+    return ret;
+}
+

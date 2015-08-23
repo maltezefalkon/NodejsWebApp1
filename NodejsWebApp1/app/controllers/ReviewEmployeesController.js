@@ -8,7 +8,7 @@
 
 function FetchData($scope, $http, $location)
 {
-    var url1 = 'http://localhost:1337/api/Organization/Addresses.Details,Tenures.Educator.Documents.Definition?OrganizationID=07489674-98D7-48F2-B357-08AE033E181A';
+    var url1 = 'http://localhost:1337/api/Organization/Tenures.Educator.Documents.Definition?OrganizationID=07489674-98D7-48F2-B357-08AE033E181A';
     $http.get(url1)
         .success(function (data, status, headers, config) {
         $scope.Organization = data[0];

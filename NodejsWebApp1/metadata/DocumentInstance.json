@@ -14,19 +14,30 @@
         },
         "EducatorID": {
             "type": "UUID",
-            "field": "educator_id"
+            "field": "educator_id",
+            "allowNull": false
         },
         "DocumentDate": {
-            "type": "DATEONLY",
-            "field": "document_date"
+            "type": "DATE",
+            "field": "document_date",
+            "allowNull": false,
+            "defaultValue": "NOW"
         },
         "UploadDateTime": {
             "type": "DATE",
-            "field": "upload_datetime"
+            "field": "upload_datetime",
+            "allowNull": false,
+            "defaultValue": "NOW"
         },
-        "TenureID": {
+        "ApplicableTenureID": {
             "type": "UUID",
-            "field": "tenure_id"
+            "field": "applicable_tenure_id",
+            "allowNull": false
+        },
+        "ReferenceTenureID": {
+            "type": "UUID",
+            "field": "reference_tenure_id",
+            "allowNull": false
         }
     },
     "Relationships": {
@@ -39,6 +50,21 @@
             "RelationshipType": "belongsTo",
             "ForeignKey": "educator_id",
             "RelatedTypeKey": "Educator"
+        },
+        "ApplicableTenure": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "applicable_tenure_id",
+            "RelatedTypeKey": "Tenure"
+        },
+        "ReferenceTenure": {
+            "RelationshipType": "belongsTo",
+            "ForeignKey": "reference_tenure_id",
+            "RelatedTypeKey": "Tenure"
+        },
+        "Fields": {
+            "RelationshipType": "hasMany",
+            "ForeignKey": "document_instance_id",
+            "RelatedTypeKey": "DocumentInstanceField"
         }
     }
 }

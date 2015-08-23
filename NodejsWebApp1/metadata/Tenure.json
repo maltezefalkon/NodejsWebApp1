@@ -18,19 +18,31 @@
             "field": "organization_id",
             "allowNull": false
         },
+        "ApplicationDate": {
+            "type": "DATEONLY",
+            "field": "application_date",
+            "allowNull": true
+        },
         "StartDate": {
-            "type": "DATE",
+            "type": "DATEONLY",
             "field": "start_date",
-            "allowNull": false
+            "allowNull": true
         },
         "EndDate": {
-            "type": "DATE",
+            "type": "DATEONLY",
             "field": "end_date",
             "allowNull": true
         },
         "PositionsHeld": {
             "type": "STRING",
-            "field": "positions_held"
+            "field": "positions_held",
+            "allowNull": false
+        },
+        "Form168Eligible": {
+            "type": "BOOLEAN",
+            "field": "form_168_eligible",
+            "allowNull": false,
+            "defaultValue": true
         }
     },
     "Relationships": {
@@ -43,6 +55,16 @@
             "RelationshipType": "belongsTo",
             "ForeignKey": "educator_id",
             "RelatedTypeKey": "Educator"
+        },
+        "ApplicationDocuments": {
+            "RelationshipType": "hasMany",
+            "ForeignKey": "application_tenure_id",
+            "RelatedTypeKey": "DocumentInstance"
+        },
+        "ReferenceDocuments": {
+            "RelationshipType": "hasMany",
+            "ForeignKey": "reference_tenure_id",
+            "RelatedTypeKey": "DocumentInstance"
         }
     }
 }

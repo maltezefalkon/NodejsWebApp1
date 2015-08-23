@@ -5,7 +5,9 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>NodejsWebApp1</Name>
     <RootNamespace>NodejsWebApp1</RootNamespace>
-    <LaunchUrl>http://localhost:1337/app/Signup.html</LaunchUrl>
+    <LaunchUrl>http://localhost:1337/app/Login.html</LaunchUrl>
+    <ScriptArguments>
+    </ScriptArguments>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -32,15 +34,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app\controllers\LoginController.js" />
-    <Content Include="app\controllers\SignupController.js" />
+    <Content Include="app\controllers\EducatorSignupController.js" />
     <Content Include="app\util\util.js" />
+    <Compile Include="metadata\DocumentDefinitionField.json" />
+    <Compile Include="metadata\DocumentInstanceField.json" />
     <Compile Include="modules\api.js" />
     <Compile Include="modules\authentication.js" />
+    <Compile Include="modules\form168.js" />
     <Compile Include="modules\logging.js" />
     <Compile Include="services\signupserver.js" />
+    <Compile Include="utils\AddJSONField.js" />
+    <Compile Include="utils\cleaned.js" />
     <Compile Include="utils\Hash.js" />
+    <Compile Include="utils\PDFFieldsToJSON.js" />
     <Compile Include="utils\Salt.js" />
-    <Compile Include="_other\Snippets.js" />
+    <Compile Include="utils\RebuildDatabase.js" />
+    <Compile Include="utils\SyncTable.js" />
     <Content Include="app\controllers\ReviewEmployeesController.js" />
     <Compile Include="main.js" />
     <Compile Include="modules\metadata.js" />
@@ -48,7 +57,6 @@
     <Compile Include="utils\DataUploader.js" />
     <Compile Include="metadata\DocumentInstance.json" />
     <Compile Include="metadata\Organization.json" />
-    <Compile Include="metadata\OrganizationAddress.json" />
     <Compile Include="metadata\OrganizationType.json" />
     <Compile Include="services\dataserver.js" />
     <Compile Include="services\webserver.js" />
@@ -56,48 +64,50 @@
     <Content Include="app\images\greencheck.png" />
     <Content Include="app\images\PDF-icon.gif" />
     <Content Include="app\images\redx.png" />
-    <Content Include="app\Signup.html" />
-    <Content Include="app\ValidationMessages.html" />
+    <Content Include="app\EducatorSignup.html" />
     <Content Include="data\Address.json" />
     <Content Include="data\AddressType.json" />
-    <Content Include="data\DocumentDefinition.json" />
+    <Content Include="referenceData\01_DocumentDefinition.json" />
     <Content Include="data\DocumentInstance.json" />
     <Content Include="data\Educator.json" />
     <Content Include="data\EducatorAddress.json" />
     <Content Include="data\Organization.json" />
     <Content Include="data\OrganizationAddress.json" />
-    <Content Include="data\OrganizationType.json" />
+    <Content Include="referenceData\02_DocumentDefinitionField.json" />
+    <Content Include="referenceData\04_Organization.json" />
+    <Content Include="referenceData\03_OrganizationType.json" />
     <Content Include="data\Tenure.json" />
     <Content Include="data\Types.json" />
     <Content Include="data\User.json" />
     <Content Include="data\UserEducatorAuthorization.json" />
     <Content Include="data\UserOrganizationAuthorization.json" />
     <Content Include="app\Login.html" />
-    <Content Include="metadata\Address.json" />
-    <Content Include="metadata\AddressType.json" />
     <Content Include="metadata\DocumentDefinition.json" />
     <Content Include="metadata\Educator.json" />
-    <Content Include="metadata\EducatorAddress.json" />
     <Content Include="metadata\Tenure.json" />
-    <Content Include="metadata\UserEducatorAuthorization.json" />
-    <Content Include="metadata\UserOrganizationAuthorization.json" />
     <Content Include="package.json" />
+    <Content Include="pdf\Form-DPTT-Fields.json" />
+    <Content Include="pdf\Form-DPTT.pdf" />
     <Content Include="README.md" />
     <Content Include="metadata\User.json" />
     <Content Include="app\ReviewEmployees.html" />
+    <Content Include="utils\sql\CleanDatabase.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\css\" />
     <Folder Include="app\util\" />
     <Folder Include="modules\" />
     <Folder Include="app\images\" />
-    <Folder Include="_other\" />
+    <Folder Include="referenceData\" />
+    <Folder Include="pdf\" />
+    <Folder Include="utils\log\" />
     <Folder Include="utils\" />
     <Folder Include="metadata\" />
     <Folder Include="app\controllers\" />
     <Folder Include="app\" />
     <Folder Include="data\" />
     <Folder Include="services\" />
+    <Folder Include="utils\sql\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

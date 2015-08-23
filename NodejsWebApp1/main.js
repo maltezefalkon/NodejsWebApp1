@@ -44,11 +44,11 @@ var passport = require('./modules/authentication.js')(app, '/login', '/app/Login
 // API gets (selects)
 app.get('/api/:type/:joins?', dataServices.getData);
 // API posts (inserts/updates)
-app.post('/api/:type', dataServices.postData);
+app.post('/api/:type?', dataServices.postData);
 
 // signup routes
 app.use('/signup', bodyParser.urlencoded({ extended: false }));
-app.get('/signup/:OrganizationID?', signupServices.getSignupData);
+app.get('/signup/Educator', signupServices.getSignupData);
 app.post('/signup', signupServices.postSignupData);
 
 // =============

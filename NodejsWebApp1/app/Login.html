@@ -6,7 +6,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="css/main.css" />
     <style type="text/css">
-        #login-area{
+        #login-area {
             width: 50%;
         }
     </style>
@@ -24,7 +24,7 @@
         <div ng-show="Message" class="error-message">{{Message}}</div>
         <div class="area" id="login-area">
             <div>
-                <label for="username">Username</label>
+                <label for="username">Email Address</label>
                 <input type="text" name="username" ng-attr-value="{{UserName}}" />
             </div>
             <div>
@@ -32,7 +32,14 @@
                 <input type="password" name="password" />
             </div>
             <div>
-                <input type="submit" value="Login" class="button right-align" />
+                <div class="right-align">
+                    <div class="inline-block">
+                        <a href="/signup/Educator">Sign Up</a>
+                    </div>
+                    <div class="inline-block">
+                        <input type="submit" value="Login" class="button" />
+                    </div>
+                </div>
             </div>
         </div>
     </form>
